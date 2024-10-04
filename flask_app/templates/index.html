@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Washing Machine</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('washing') }}">
+                            <div class="row">
+                                <div class="col mx-auto">
+                                    <label for="washing_time">Washing time</label>
+                                    <select class="form-control" id="washing_time" name="washing_time">
+                                        <option value=7>7 sec.</option>
+                                        <option value="15">15 sec.</option>
+                                        <option value="30">30 sec.</option>
+                                        <option value="60">1 min.</option>
+                                        <option value="120">2 min.</option>
+                                    </select>
+                                </div>
+                                <div class="col mx-auto">
+                                    <label for="rinsing_time">Rinsing time</label>
+                                    <select class="form-control" id="rinsing_time" name="rinsing_time">
+                                        <option value=7>7 sec.</option>
+                                        <option value="15">15 sec.</option>
+                                        <option value="30">30 sec.</option>
+                                        <option value="60">1 min.</option>
+                                    </select>
+                                </div>
+                                <div class="col mx-auto">
+                                    <label for="spinning_time">Spinning time</label>
+                                    <select class="form-control" id="spinning_time" name="spinning_time">
+                                        <option value="7">7 sec.</option>
+                                        <option value="15">15 sec.</option>
+                                        <option value="30">30 sec.</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-center">
+                                <button type="submit" class="btn btn-primary" id="startButton">Start Washing</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h2 class="card-title">Washing Machine Status</h2>
+                        <h4>Status: <span id="status" class="badge badge-secondary"></span></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+            <img src="static/images/img.png" id="img" width="50%" alt="waiting-mode">
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+             <div class="tenor-gif-embed" data-postid="10826328646164153001" id="gif" data-share-method="host" data-aspect-ratio="1.76596" data-width="50%" style="display: none;">
+            <a href="https://tenor.com/view/lave-lingue-wash-machine-machine-a-laver-destroying-gif-10826328646164153001">Lave Lingue Wash Machine GIF</a> from <a href="https://tenor.com/search/lave+lingue-gifs">Lave Lingue GIFs</a>
+        </div>
+        <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        </div>
+    </div>
+
+    <script>
+        function getStatus() {
+            $.getJSON('/washing', function(data) {
+                $('#status').text(data.state);
+
+                if (data.state !== "waiting") {
+                    $('#startButton').prop('disabled', true).text('Washing...').removeClass('btn-primary').addClass('btn-warning');
+                    $('#gif').show();
+                    $('#img').hide();
+
+                }
+                else {
+                    $('#startButton').prop('disabled', false).text('Start Washing').removeClass('btn-warning').addClass('btn-primary');
+                    $('#gif').hide();
+                    $('#img').show();
+                }
+            });
+        }
+
+        $('#startButton').click(function() {
+            $.getJSON('/washing', function(data) {
+            });
+        });
+
+        setInterval(getStatus, 1000);
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
