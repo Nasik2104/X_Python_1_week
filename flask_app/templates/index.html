@@ -11,6 +11,18 @@
             <div class="col-md-6 text-center">
                 <div class="card shadow">
                     <div class="card-body">
+                        <a href="{{ url_for('converter') }}">To the converter --></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <div class="card shadow">
+                    <div class="card-body">
                         <form method="POST" action="{{ url_for('washing') }}">
                             <div class="row">
                                 <div class="col mx-auto">
