@@ -4,7 +4,7 @@ Done with Flask
 ## Installation
 1. **Clone repository:**
     ```bash
-    git clone https://github.com/user/repo.git
+    git clone https://github.com/Nasik2104/X_Python_1_week
 2. **Go to project directory** 
     ```bash
    /x-python/
